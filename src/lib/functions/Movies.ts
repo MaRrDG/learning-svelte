@@ -13,4 +13,12 @@ export default class Movies {
 
     return response.json();
   }
+
+  public async getMovieByName(name: string) {
+    const response = await fetch(this.url + `${this.apiKey}&t=${encodeURIComponent(name)}`, {
+      method: "GET",
+    });
+
+    return response.json();
+  }
 }
