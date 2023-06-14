@@ -1,6 +1,6 @@
 <script lang="ts">
   import Movies from "$lib/functions/Movies";
-  import MovieInfo from "./MovieInfo.svelte";
+  import MovieInfoCard from "../../lib/components/MovieInfoCard.svelte";
 
   let movieName: string;
   let movie: IMovie | string;
@@ -37,7 +37,7 @@
   </form>
 
   {#if movie && typeof movie !== "string"}
-    <MovieInfo data={movie} />
+    <MovieInfoCard data={movie} starred={false} />
   {:else if movie === "Movie not found!"}
     <p>No movie found!</p>
   {/if}

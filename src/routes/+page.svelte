@@ -5,14 +5,18 @@
   import { onMount } from "svelte";
 
   let movies: IMovie[] = [];
+  let loader = false;
 
   onMount(() => {
+    loader = true;
     const MovieClass = new Movies(import.meta.env.VITE_MOVIE_REST_API);
 
     [0, 1, 2].forEach(async (item) => {
       const movie = await MovieClass.getMovieByNameAndYear(MOVIES[item].title, MOVIES[item].year);
       movies = [...movies, movie];
     });
+
+    loader = false;
   });
 </script>
 
@@ -34,9 +38,11 @@
     </div>
   </div>
   <div class="flex flex-wrap flex-col w-[48rem]">
-    <h1 class="text-2xl text-[#05386B]">TOP 3 Star Wars Movies</h1>
-    {#each movies as item}
-      <Card data={item} />
-    {/each}
+    {#if !loader}
+      <h1 class="text-2xl text-[#05386B]">TOP 3 Star Wars Movies</h1>
+      {#each movies as item}
+        <Card data={item} />
+      {/each}
+    {/if}
   </div>
 </section>
